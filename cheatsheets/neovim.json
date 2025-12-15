@@ -1,0 +1,574 @@
+{
+  "id": "neovim",
+  "name": "Neovim",
+  "description": "Core motions, editing, search, selection, and window management.",
+  "hint": "Use :help in neovim for tips and reminders.",
+  "processes": [
+    "nvim.exe",
+    "cmd.exe",
+    "consolehost.exe",
+    "WindowsTerminal.exe",
+    "Code.exe",
+    "neovide.exe"
+  ],
+  "sections": [
+    {
+      "title": "File / Session",
+      "items": [
+        { "keys": [":w"], "desc": "Write file", "tags": ["file"] },
+        {
+          "keys": [":wq", "ZZ"],
+          "desc": "Write and quit",
+          "tags": ["file", "quit"]
+        },
+        {
+          "keys": [":q"],
+          "desc": "Quit (fails if unsaved changes)",
+          "tags": ["quit"]
+        },
+        {
+          "keys": [":q!", "ZQ"],
+          "desc": "Quit, discard changes",
+          "tags": ["quit", "danger"],
+          "hint": "Force close even with unsaved edits."
+        },
+        { "keys": [":e {file}"], "desc": "Edit/open file", "tags": ["file"] },
+        {
+          "keys": [":bnext", ":bn"],
+          "desc": "Next buffer",
+          "tags": ["buffer"]
+        },
+        {
+          "keys": [":bprev", ":bp"],
+          "desc": "Previous buffer",
+          "tags": ["buffer"]
+        },
+        {
+          "keys": [":ls", ":buffers"],
+          "desc": "List buffers",
+          "tags": ["buffer"]
+        },
+        {
+          "keys": [":wa"],
+          "desc": "Write all modified buffers",
+          "tags": ["file", "buffer"]
+        },
+        {
+          "keys": [":qa"],
+          "desc": "Quit all (fails if unsaved changes)",
+          "tags": ["quit"]
+        },
+        {
+          "keys": [":wqa", ":xa"],
+          "desc": "Write all and quit",
+          "tags": ["file", "quit"]
+        }
+      ]
+    },
+    {
+      "title": "Modes",
+      "items": [
+        {
+          "keys": ["<Esc>", "Ctrl+["],
+          "desc": "Return to Normal mode",
+          "tags": ["mode"]
+        },
+        { "keys": ["i"], "desc": "Insert before cursor", "tags": ["insert"] },
+        { "keys": ["a"], "desc": "Insert after cursor", "tags": ["insert"] },
+        {
+          "keys": ["I"],
+          "desc": "Insert at start of line",
+          "tags": ["insert"]
+        },
+        { "keys": ["A"], "desc": "Insert at end of line", "tags": ["insert"] },
+        {
+          "keys": ["o"],
+          "desc": "Open new line below, insert",
+          "tags": ["insert"]
+        },
+        {
+          "keys": ["O"],
+          "desc": "Open new line above, insert",
+          "tags": ["insert"]
+        },
+        { "keys": ["v"], "desc": "Visual character mode", "tags": ["visual"] },
+        { "keys": ["V"], "desc": "Visual line mode", "tags": ["visual"] },
+        {
+          "keys": ["Ctrl+v"],
+          "desc": "Visual block mode",
+          "tags": ["visual", "block"]
+        }
+      ]
+    },
+    {
+      "title": "Basic movement",
+      "items": [
+        {
+          "keys": ["h", "j", "k", "l"],
+          "desc": "Left, down, up, right",
+          "tags": ["move"]
+        },
+        { "keys": ["0"], "desc": "Start of line", "tags": ["move", "line"] },
+        {
+          "keys": ["^"],
+          "desc": "First non-blank in line",
+          "tags": ["move", "line"]
+        },
+        { "keys": ["$"], "desc": "End of line", "tags": ["move", "line"] },
+        { "keys": ["w"], "desc": "Next word start", "tags": ["move", "word"] },
+        {
+          "keys": ["b"],
+          "desc": "Previous word start",
+          "tags": ["move", "word"]
+        },
+        { "keys": ["e"], "desc": "Next word end", "tags": ["move", "word"] },
+        {
+          "keys": ["gg"],
+          "desc": "Go to first line",
+          "tags": ["move", "file"]
+        },
+        { "keys": ["G"], "desc": "Go to last line", "tags": ["move", "file"] },
+        {
+          "keys": ["{", "}"],
+          "desc": "Previous/next paragraph",
+          "tags": ["move", "paragraph"]
+        },
+        {
+          "keys": ["Ctrl+u"],
+          "desc": "Page up (half screen)",
+          "tags": ["move", "page"]
+        },
+        {
+          "keys": ["Ctrl+d"],
+          "desc": "Page down (half screen)",
+          "tags": ["move", "page"]
+        },
+        {
+          "keys": ["%"],
+          "desc": "Jump to matching bracket/paren",
+          "tags": ["move", "match"]
+        },
+        {
+          "keys": ["f{char}"],
+          "desc": "Find next {char} on line",
+          "tags": ["move", "find"]
+        },
+        {
+          "keys": ["F{char}"],
+          "desc": "Find previous {char} on line",
+          "tags": ["move", "find"]
+        },
+        {
+          "keys": ["t{char}"],
+          "desc": "Move before next {char} on line",
+          "tags": ["move", "find"]
+        },
+        {
+          "keys": ["T{char}"],
+          "desc": "Move after previous {char} on line",
+          "tags": ["move", "find"]
+        },
+        {
+          "keys": [";"],
+          "desc": "Repeat last f/F/t/T",
+          "tags": ["move", "find", "repeat"]
+        },
+        {
+          "keys": [","],
+          "desc": "Repeat last f/F/t/T in opposite direction",
+          "tags": ["move", "find", "repeat"]
+        }
+      ]
+    },
+    {
+      "title": "Editing / deleting",
+      "items": [
+        {
+          "keys": ["x"],
+          "desc": "Delete character under cursor",
+          "tags": ["delete"]
+        },
+        {
+          "keys": ["X"],
+          "desc": "Delete character before cursor",
+          "tags": ["delete"]
+        },
+        {
+          "keys": ["dw"],
+          "desc": "Delete to start of next word",
+          "tags": ["delete", "word"]
+        },
+        {
+          "keys": ["de"],
+          "desc": "Delete to end of word",
+          "tags": ["delete", "word"]
+        },
+        {
+          "keys": ["db"],
+          "desc": "Delete to start of previous word",
+          "tags": ["delete", "word"]
+        },
+        {
+          "keys": ["dd"],
+          "desc": "Delete (cut) current line",
+          "tags": ["delete", "line"],
+          "hint": "Yanks the line unless you use the black hole register."
+        },
+        {
+          "keys": ["D"],
+          "desc": "Delete to end of line",
+          "tags": ["delete", "line"]
+        },
+        {
+          "keys": ["\"_d{motion}"],
+          "desc": "Delete without yanking (black hole register)",
+          "tags": ["delete", "yank", "black hole", "copy"]
+        },
+        {
+          "keys": ["cc"],
+          "desc": "Change (replace) entire line",
+          "tags": ["change", "line"]
+        },
+        {
+          "keys": ["cw"],
+          "desc": "Change word from cursor",
+          "tags": ["change", "word"]
+        },
+        {
+          "keys": ["s"],
+          "desc": "Substitute character (delete and insert)",
+          "tags": ["change"]
+        },
+        {
+          "keys": ["S"],
+          "desc": "Substitute line",
+          "tags": ["change", "line"]
+        },
+        { "keys": ["u"], "desc": "Undo", "tags": ["undo"] },
+        { "keys": ["Ctrl+r"], "desc": "Redo", "tags": ["redo"] },
+        { "keys": ["."], "desc": "Repeat last change", "tags": ["repeat"] },
+        {
+          "keys": ["5dd"],
+          "desc": "Delete 5 lines (current + next 4)",
+          "tags": ["delete", "line"]
+        },
+        {
+          "keys": [":%d"],
+          "desc": "Delete all lines in file",
+          "tags": ["delete", "file", "danger"],
+          "hint": "Same effect as ggdG."
+        },
+        {
+          "keys": ["ggdG"],
+          "desc": "Delete all lines (from first to last)",
+          "tags": ["delete", "file", "danger"]
+        },
+        {
+          "keys": ["r{char}"],
+          "desc": "Replace character under cursor",
+          "tags": ["change"]
+        },
+        {
+          "keys": ["J"],
+          "desc": "Join line with next line",
+          "tags": ["edit", "line"]
+        },
+        {
+          "keys": [">>"],
+          "desc": "Indent line",
+          "tags": ["indent"]
+        },
+        {
+          "keys": ["<<"],
+          "desc": "Unindent line",
+          "tags": ["indent"]
+        }
+      ]
+    },
+    {
+      "title": "Yank / paste",
+      "items": [
+        {
+          "keys": ["yy", "Y"],
+          "desc": "Yank (copy) line",
+          "tags": ["yank", "line"]
+        },
+        {
+          "keys": ["p"],
+          "desc": "Paste after cursor / line",
+          "tags": ["paste"]
+        },
+        {
+          "keys": ["P"],
+          "desc": "Paste before cursor / line",
+          "tags": ["paste"]
+        },
+        {
+          "keys": ["yw"],
+          "desc": "Yank word from cursor",
+          "tags": ["yank", "word"]
+        },
+        {
+          "keys": ["y$"],
+          "desc": "Yank to end of line",
+          "tags": ["yank", "line"]
+        },
+        {
+          "keys": ["\"ayy"],
+          "desc": "Yank line to register a",
+          "tags": ["yank", "register"]
+        },
+        {
+          "keys": ["\"ap"],
+          "desc": "Paste from register a",
+          "tags": ["paste", "register"]
+        },
+        {
+          "keys": ["\"+y"],
+          "desc": "Yank to system clipboard (+ register)",
+          "tags": ["yank", "clipboard", "register"]
+        },
+        {
+          "keys": ["\"+p"],
+          "desc": "Paste from system clipboard (+ register)",
+          "tags": ["paste", "clipboard", "register"]
+        }
+      ]
+    },
+    {
+      "title": "Search / replace",
+      "items": [
+        { "keys": ["/pattern"], "desc": "Search forward", "tags": ["search"] },
+        { "keys": ["?pattern"], "desc": "Search backward", "tags": ["search"] },
+        { "keys": ["n"], "desc": "Next match", "tags": ["search"] },
+        { "keys": ["N"], "desc": "Previous match", "tags": ["search"] },
+        {
+          "keys": [":%s/old/new/g"],
+          "desc": "Replace all in file",
+          "tags": ["substitute"],
+          "hint": "Add c at the end for confirmation per match."
+        },
+        {
+          "keys": [":%s/old/new/gc"],
+          "desc": "Replace all with confirm",
+          "tags": ["substitute"]
+        },
+        {
+          "keys": ["*"],
+          "desc": "Search forward for word under cursor",
+          "tags": ["search"]
+        },
+        {
+          "keys": ["#"],
+          "desc": "Search backward for word under cursor",
+          "tags": ["search"]
+        },
+        {
+          "keys": [":noh", ":nohlsearch"],
+          "desc": "Clear search highlight",
+          "tags": ["search"]
+        }
+      ]
+    },
+    {
+      "title": "Windows / splits",
+      "items": [
+        {
+          "keys": [":split", ":sp"],
+          "desc": "Horizontal split",
+          "tags": ["split", "window"]
+        },
+        {
+          "keys": [":vsplit", ":vsp"],
+          "desc": "Vertical split",
+          "tags": ["split", "window"]
+        },
+        {
+          "keys": ["Ctrl+w h/j/k/l"],
+          "desc": "Move between windows",
+          "tags": ["split", "window"]
+        },
+        {
+          "keys": ["Ctrl+w c"],
+          "desc": "Close window",
+          "tags": ["split", "window"]
+        },
+        {
+          "keys": ["Ctrl+w ="],
+          "desc": "Equalize window sizes",
+          "tags": ["split", "window"]
+        }
+      ]
+    },
+    {
+      "title": "Selection / text objects",
+      "items": [
+        {
+          "keys": ["v{motion}"],
+          "desc": "Select from cursor using motion",
+          "tags": ["visual", "select"],
+          "hint": "Press v then move with w, $, f<char>, etc."
+        },
+        {
+          "keys": ["V{motion}"],
+          "desc": "Select whole lines using motion",
+          "tags": ["visual", "select", "line"],
+          "hint": "Press V then move with j/k/gg/G, etc."
+        },
+        {
+          "keys": ["Ctrl+v{motion}"],
+          "desc": "Select rectangular block using motion",
+          "tags": ["visual", "select", "block"]
+        },
+        {
+          "keys": ["viw"],
+          "desc": "Select inner word",
+          "tags": ["visual", "text object", "word"]
+        },
+        {
+          "keys": ["vaw"],
+          "desc": "Select word and surrounding space",
+          "tags": ["visual", "text object", "word"]
+        },
+        {
+          "keys": ["vi(", "vi)"],
+          "desc": "Select inside parentheses",
+          "tags": ["visual", "text object", "block"]
+        },
+        {
+          "keys": ["va(", "va)"],
+          "desc": "Select parentheses and contents",
+          "tags": ["visual", "text object", "block"]
+        },
+        {
+          "keys": ["vi{", "vi}"],
+          "desc": "Select inside braces",
+          "tags": ["visual", "text object", "block"]
+        },
+        {
+          "keys": ["va{", "va}"],
+          "desc": "Select braces and contents",
+          "tags": ["visual", "text object", "block"]
+        },
+        {
+          "keys": ["vi[", "vi]"],
+          "desc": "Select inside brackets",
+          "tags": ["visual", "text object", "block"]
+        },
+        {
+          "keys": ["va[", "va]"],
+          "desc": "Select brackets and contents",
+          "tags": ["visual", "text object", "block"]
+        },
+        {
+          "keys": ["vi\""],
+          "desc": "Select inside double quotes",
+          "tags": ["visual", "text object", "string"]
+        },
+        {
+          "keys": ["va\""],
+          "desc": "Select double quotes and contents",
+          "tags": ["visual", "text object", "string"]
+        },
+        {
+          "keys": ["vi'"],
+          "desc": "Select inside single quotes",
+          "tags": ["visual", "text object", "string"]
+        },
+        {
+          "keys": ["va'"],
+          "desc": "Select single quotes and contents",
+          "tags": ["visual", "text object", "string"]
+        },
+        {
+          "keys": ["vip"],
+          "desc": "Select inner paragraph",
+          "tags": ["visual", "text object", "paragraph"]
+        },
+        {
+          "keys": ["vap"],
+          "desc": "Select whole paragraph",
+          "tags": ["visual", "text object", "paragraph"]
+        },
+        {
+          "keys": ["gv"],
+          "desc": "Reselect last visual selection",
+          "tags": ["visual", "select"]
+        },
+        {
+          "keys": ["ggVG"],
+          "desc": "Select all",
+          "tags": ["visual", "select", "file"],
+          "hint": "gg to first line, V linewise, G to last line."
+        },
+        {
+          "keys": ["5V"],
+          "desc": "Select 5 lines (current + next 4)",
+          "tags": ["visual", "select", "line"],
+          "hint": "Prefix count before V."
+        }
+      ]
+    },
+    {
+      "title": "Useful extras",
+      "items": [
+        {
+          "keys": ["ciw"],
+          "desc": "Change inner word",
+          "tags": ["change", "text object", "word"]
+        },
+        {
+          "keys": ["ci\"", "ci'", "ci)", "ci]", "ci}"],
+          "desc": "Change inside quotes/brackets/braces/parens",
+          "tags": ["change", "text object", "block", "string"]
+        },
+        {
+          "keys": ["diw"],
+          "desc": "Delete inner word",
+          "tags": ["delete", "text object", "word"]
+        },
+        {
+          "keys": ["yip", "yap"],
+          "desc": "Yank inner/whole paragraph",
+          "tags": ["yank", "text object", "paragraph"]
+        },
+        {
+          "keys": ["="],
+          "desc": "Reindent selection (Visual mode)",
+          "tags": ["indent", "format"]
+        },
+        {
+          "keys": ["~"],
+          "desc": "Toggle case of character under cursor",
+          "tags": ["edit", "case"]
+        },
+        {
+          "keys": ["q{register}", "q"],
+          "desc": "Record/stop macro",
+          "tags": ["macro", "register"],
+          "hint": "Example: qa ... q then @a to run."
+        },
+        {
+          "keys": ["@{register}"],
+          "desc": "Run macro from register",
+          "tags": ["macro", "register"]
+        },
+        {
+          "keys": ["m{char}"],
+          "desc": "Set mark {char}",
+          "tags": ["mark"]
+        },
+        {
+          "keys": ["'{char}"],
+          "desc": "Jump to line of mark {char}",
+          "tags": ["mark", "move"]
+        },
+        {
+          "keys": ["`{char}"],
+          "desc": "Jump to exact position of mark {char}",
+          "tags": ["mark", "move"]
+        }
+      ]
+    }
+  ]
+}

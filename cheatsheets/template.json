@@ -1,0 +1,34 @@
+{
+  "id": "template",
+  "name": "Example template",
+  "description": "Duplicate this file to add more sheets. Fields like hint/tags/processes are optional.",
+  "processes": ["example.exe", "myapp.exe"],
+  "sections": [
+    {
+      "title": "Section title",
+      "items": [
+        {
+          "keys": ["primary key", "alt key"],
+          "desc": "Description of what this entry does, short and precise.",
+          "tags": ["category", "context"],
+          "hint": "You can remove tags or hint if not needed."
+        },
+        {
+          "keys": ["cmd arg1 arg2"],
+          "desc": "Another example entry, to be replaced with your own.",
+          "tags": ["command", "example"]
+        }
+      ]
+    },
+    {
+      "title": "Another section",
+      "items": [
+        {
+          "keys": ["Shortcut"],
+          "desc": "You can create as many sections and items as you like.",
+          "tags": ["structure"]
+        }
+      ]
+    }
+  ]
+}
