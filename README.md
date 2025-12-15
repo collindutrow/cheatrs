@@ -113,6 +113,12 @@ Directories are scanned in the above order. Invalid JSON files are skipped.
 
 ## Build and run
 
+Regenerating icons
+
+```shell
+cargo tauri icon src-tauri/icons/icon.png
+```
+
 Development:
 
 ```shell
@@ -130,4 +136,3 @@ Packaging:
 ```shell
 cargo tauri build
 ```
-
