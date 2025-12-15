@@ -1,6 +1,10 @@
 
 # Cheatrs
 
+Preview:
+<img width="2526" height="1288" alt="Preview" src="https://github.com/user-attachments/assets/7891f720-e40a-4575-b0b2-4bc6f1f94d87" />
+
+
 Cheatrs is a small Rust/Tauri-based desktop cheatsheet viewer with a Leptos/WASM UI. It provides a toggleable window, fuzzy search, and dynamically loaded JSON cheatsheets.
 
 Cheatrs get it's name from a combination of Cheat and the common abbreviation RS for Rust – which cheatrs is written in.
