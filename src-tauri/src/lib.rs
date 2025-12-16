@@ -139,12 +139,25 @@ fn get_config() -> AppConfig {
 }
 
 #[tauri::command]
-fn update_last_cheatsheet(sheet_id: String, process_name: Option<String>) -> Result<(), String> {
+fn update_last_cheatsheet(
+    sheet_id: String,
+    process_name: Option<String>,
+    sheet_processes: Vec<String>,
+) -> Result<(), String> {
     let mut config = load_config();
     config.last_cheatsheet_id = Some(sheet_id.clone());
 
+    // Only save per-process preference if the process is actually listed in the sheet's processes
     if let Some(process) = process_name {
-        config.last_cheatsheet_per_process.insert(process, sheet_id);
+        if !sheet_processes.is_empty()
+            && sheet_processes
+                .iter()
+                .any(|p| p.to_lowercase() == process.to_lowercase())
+        {
+            config
+                .last_cheatsheet_per_process
+                .insert(process, sheet_id);
+        }
     }
 
     save_config(&config)
@@ -169,6 +182,12 @@ fn get_initial_sheet_id() -> Option<String> {
     }
 
     config.last_cheatsheet_id
+}
+
+#[tauri::command]
+fn get_sheet_for_process(process_name: String) -> Option<String> {
+    let config = load_config();
+    config.last_cheatsheet_per_process.get(&process_name).cloned()
 }
 
 #[tauri::command]
@@ -352,6 +371,7 @@ pub fn run() {
             update_last_cheatsheet,
             toggle_search_all_for_process,
             get_initial_sheet_id,
+            get_sheet_for_process,
             set_window_size_from_screen
         ])
         .run(tauri::generate_context!())

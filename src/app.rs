@@ -248,7 +248,61 @@ pub fn App() -> impl IntoView {
                     let process = invoke("get_current_process", JsValue::NULL).await;
                     if !process.is_undefined() && !process.is_null() {
                         if let Ok(p) = serde_wasm_bindgen::from_value::<String>(process) {
-                            set_current_process.set(Some(p));
+                            set_current_process.set(Some(p.clone()));
+
+                            // Check if current cheatsheet fits the process
+                            let current_id = current_sheet_id.get();
+                            let all_sheets = sheets.get();
+
+                            // Find current sheet
+                            let current_sheet_matches = all_sheets.iter().find(|s| s.id == current_id)
+                                .map(|sheet| {
+                                    sheet.processes.is_empty() ||
+                                    sheet.processes.iter().any(|proc| proc.to_lowercase() == p.to_lowercase())
+                                })
+                                .unwrap_or(false);
+
+                            // If current sheet doesn't match, try to switch
+                            if !current_sheet_matches {
+                                // First, check if there's a saved preference for this process
+                                use serde_wasm_bindgen::to_value;
+                                let args = serde_json::json!({
+                                    "processName": p
+                                });
+
+                                let mut target_sheet_id: Option<String> = None;
+
+                                if let Ok(js_args) = to_value(&args) {
+                                    let saved_sheet = invoke("get_sheet_for_process", js_args).await;
+                                    if !saved_sheet.is_undefined() && !saved_sheet.is_null() {
+                                        if let Ok(sheet_id) = serde_wasm_bindgen::from_value::<Option<String>>(saved_sheet) {
+                                            // Verify the saved sheet matches the process
+                                            if let Some(ref saved_id) = sheet_id {
+                                                if let Some(sheet) = all_sheets.iter().find(|s| &s.id == saved_id) {
+                                                    if sheet.processes.iter().any(|proc| proc.to_lowercase() == p.to_lowercase()) {
+                                                        target_sheet_id = Some(saved_id.clone());
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                // If no saved preference or saved sheet doesn't match, find first matching sheet
+                                if target_sheet_id.is_none() {
+                                    if let Some(matching_sheet) = all_sheets.iter().find(|sheet| {
+                                        !sheet.processes.is_empty() &&
+                                        sheet.processes.iter().any(|proc| proc.to_lowercase() == p.to_lowercase())
+                                    }) {
+                                        target_sheet_id = Some(matching_sheet.id.clone());
+                                    }
+                                }
+
+                                // Switch to the target sheet if found
+                                if let Some(id) = target_sheet_id {
+                                    set_current_sheet_id.set(id);
+                                }
+                            }
                         }
                     }
                 });
@@ -267,9 +321,19 @@ pub fn App() -> impl IntoView {
         if !sheet_id.is_empty() {
             leptos::task::spawn_local(async move {
                 use serde_wasm_bindgen::to_value;
+
+                // Get the current sheet's processes list
+                let all_sheets = sheets.get();
+                let sheet_processes = all_sheets
+                    .iter()
+                    .find(|s| s.id == sheet_id)
+                    .map(|s| s.processes.clone())
+                    .unwrap_or_default();
+
                 let args = serde_json::json!({
                     "sheetId": sheet_id,
-                    "processName": process
+                    "processName": process,
+                    "sheetProcesses": sheet_processes
                 });
                 if let Ok(js_args) = to_value(&args) {
                     let _ = invoke("update_last_cheatsheet", js_args).await;
