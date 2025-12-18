@@ -154,9 +154,7 @@ fn update_last_cheatsheet(
                 .iter()
                 .any(|p| p.to_lowercase() == process.to_lowercase())
         {
-            config
-                .last_cheatsheet_per_process
-                .insert(process, sheet_id);
+            config.last_cheatsheet_per_process.insert(process, sheet_id);
         }
     }
 
@@ -187,7 +185,10 @@ fn get_initial_sheet_id() -> Option<String> {
 #[tauri::command]
 fn get_sheet_for_process(process_name: String) -> Option<String> {
     let config = load_config();
-    config.last_cheatsheet_per_process.get(&process_name).cloned()
+    config
+        .last_cheatsheet_per_process
+        .get(&process_name)
+        .cloned()
 }
 
 #[tauri::command]

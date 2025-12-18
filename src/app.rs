@@ -255,10 +255,15 @@ pub fn App() -> impl IntoView {
                             let all_sheets = sheets.get();
 
                             // Find current sheet
-                            let current_sheet_matches = all_sheets.iter().find(|s| s.id == current_id)
+                            let current_sheet_matches = all_sheets
+                                .iter()
+                                .find(|s| s.id == current_id)
                                 .map(|sheet| {
-                                    sheet.processes.is_empty() ||
-                                    sheet.processes.iter().any(|proc| proc.to_lowercase() == p.to_lowercase())
+                                    sheet.processes.is_empty()
+                                        || sheet
+                                            .processes
+                                            .iter()
+                                            .any(|proc| proc.to_lowercase() == p.to_lowercase())
                                 })
                                 .unwrap_or(false);
 
@@ -273,13 +278,22 @@ pub fn App() -> impl IntoView {
                                 let mut target_sheet_id: Option<String> = None;
 
                                 if let Ok(js_args) = to_value(&args) {
-                                    let saved_sheet = invoke("get_sheet_for_process", js_args).await;
+                                    let saved_sheet =
+                                        invoke("get_sheet_for_process", js_args).await;
                                     if !saved_sheet.is_undefined() && !saved_sheet.is_null() {
-                                        if let Ok(sheet_id) = serde_wasm_bindgen::from_value::<Option<String>>(saved_sheet) {
+                                        if let Ok(sheet_id) =
+                                            serde_wasm_bindgen::from_value::<Option<String>>(
+                                                saved_sheet,
+                                            )
+                                        {
                                             // Verify the saved sheet matches the process
                                             if let Some(ref saved_id) = sheet_id {
-                                                if let Some(sheet) = all_sheets.iter().find(|s| &s.id == saved_id) {
-                                                    if sheet.processes.iter().any(|proc| proc.to_lowercase() == p.to_lowercase()) {
+                                                if let Some(sheet) =
+                                                    all_sheets.iter().find(|s| &s.id == saved_id)
+                                                {
+                                                    if sheet.processes.iter().any(|proc| {
+                                                        proc.to_lowercase() == p.to_lowercase()
+                                                    }) {
                                                         target_sheet_id = Some(saved_id.clone());
                                                     }
                                                 }
@@ -291,8 +305,11 @@ pub fn App() -> impl IntoView {
                                 // If no saved preference or saved sheet doesn't match, find first matching sheet
                                 if target_sheet_id.is_none() {
                                     if let Some(matching_sheet) = all_sheets.iter().find(|sheet| {
-                                        !sheet.processes.is_empty() &&
-                                        sheet.processes.iter().any(|proc| proc.to_lowercase() == p.to_lowercase())
+                                        !sheet.processes.is_empty()
+                                            && sheet
+                                                .processes
+                                                .iter()
+                                                .any(|proc| proc.to_lowercase() == p.to_lowercase())
                                     }) {
                                         target_sheet_id = Some(matching_sheet.id.clone());
                                     }
