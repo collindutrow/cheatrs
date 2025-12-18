@@ -1,0 +1,185 @@
+{
+  "id": "helix",
+  "name": "Helix",
+  "description": "Core movement, selection-first editing, search, registers/clipboard, pickers, and window management.",
+  "hint": "Helix is selection-first: select (or extend) a range, then act (delete/change/yank). Command mode is ':' and pickers are in Space mode.",
+  "processes": ["hx", "helix", "helix.exe", "WindowsTerminal.exe", "cmd.exe", "consolehost.exe"],
+  "sections": [
+    {
+      "title": "File / Session (command mode)",
+      "items": [
+        { "keys": [":w", ":write"], "desc": "Write file", "tags": ["file"] },
+        { "keys": [":w!", ":write!"], "desc": "Force write (create needed directories)", "tags": ["file", "danger"] },
+        { "keys": [":q", ":quit"], "desc": "Close current view", "tags": ["quit"] },
+        { "keys": [":q!", ":quit!"], "desc": "Force close view, ignore unsaved changes", "tags": ["quit", "danger"] },
+        { "keys": [":wq", ":write-quit", ":x"], "desc": "Write and close current view", "tags": ["file", "quit"] },
+        { "keys": [":wq!", ":write-quit!", ":x!"], "desc": "Force write and close view", "tags": ["file", "quit", "danger"] },
+        { "keys": [":o {file}", ":open {file}", ":e {file}", ":edit {file}"], "desc": "Open file into current view", "tags": ["file"] },
+        { "keys": [":bn", ":buffer-next"], "desc": "Next buffer", "tags": ["buffer"] },
+        { "keys": [":bp", ":buffer-previous"], "desc": "Previous buffer", "tags": ["buffer"] },
+        { "keys": [":bc", ":buffer-close"], "desc": "Close current buffer", "tags": ["buffer", "quit"] },
+        { "keys": [":bc!", ":buffer-close!"], "desc": "Force close buffer, ignore unsaved changes", "tags": ["buffer", "quit", "danger"] },
+        { "keys": [":wa", ":write-all"], "desc": "Write all buffers", "tags": ["file", "buffer"] },
+        { "keys": [":wqa", ":write-quit-all", ":xa"], "desc": "Write all and close all views", "tags": ["file", "quit"] },
+        { "keys": [":qa", ":quit-all"], "desc": "Close all views", "tags": ["quit"] },
+        { "keys": [":qa!", ":quit-all!"], "desc": "Force close all views, ignore unsaved changes", "tags": ["quit", "danger"] }
+      ]
+    },
+    {
+      "title": "Modes",
+      "items": [
+        { "keys": ["Esc"], "desc": "Return to Normal mode", "tags": ["mode"] },
+        { "keys": ["i"], "desc": "Enter Insert mode (insert before selection)", "tags": ["insert", "mode"] },
+        { "keys": ["a"], "desc": "Enter Insert mode (append after selection)", "tags": ["insert", "mode"] },
+        { "keys": ["I"], "desc": "Insert at start of line", "tags": ["insert"] },
+        { "keys": ["A"], "desc": "Insert at end of line", "tags": ["insert"] },
+        { "keys": ["o"], "desc": "Open new line below selection and insert", "tags": ["insert"] },
+        { "keys": ["O"], "desc": "Open new line above selection and insert", "tags": ["insert"] },
+        { "keys": ["v"], "desc": "Enter Select (extend) mode", "tags": ["select", "mode"] },
+        { "keys": [":"], "desc": "Enter command mode", "tags": ["command", "mode"] },
+        { "keys": ["Space"], "desc": "Enter Space mode (pickers/clipboard/palette)", "tags": ["mode", "picker"] },
+        { "keys": ["Ctrl-w"], "desc": "Enter Window mode (splits/navigation)", "tags": ["mode", "window"] },
+        { "keys": ["g"], "desc": "Enter Goto mode", "tags": ["mode", "goto"] },
+        { "keys": ["m"], "desc": "Enter Match mode (brackets/surround/textobjects)", "tags": ["mode", "match"] },
+        { "keys": ["z"], "desc": "Enter View mode (scroll/align view)", "tags": ["mode", "view"] },
+        { "keys": ["Z"], "desc": "Enter sticky View mode (Esc to exit)", "tags": ["mode", "view"] }
+      ]
+    },
+    {
+      "title": "Basic movement (Normal mode)",
+      "items": [
+        { "keys": ["h", "j", "k", "l"], "desc": "Left, down, up, right", "tags": ["move"] },
+        { "keys": ["w"], "desc": "Next word start", "tags": ["move", "word"] },
+        { "keys": ["b"], "desc": "Previous word start", "tags": ["move", "word"] },
+        { "keys": ["e"], "desc": "Next word end", "tags": ["move", "word"] },
+        { "keys": ["W"], "desc": "Next WORD start", "tags": ["move", "word"] },
+        { "keys": ["B"], "desc": "Previous WORD start", "tags": ["move", "word"] },
+        { "keys": ["E"], "desc": "Next WORD end", "tags": ["move", "word"] },
+        { "keys": ["f{char}"], "desc": "Find next {char} (not limited to current line)", "tags": ["move", "find"] },
+        { "keys": ["F{char}"], "desc": "Find previous {char} (not limited to current line)", "tags": ["move", "find"] },
+        { "keys": ["t{char}"], "desc": "Find till next {char}", "tags": ["move", "find"] },
+        { "keys": ["T{char}"], "desc": "Find till previous {char}", "tags": ["move", "find"] },
+        { "keys": ["Alt+."], "desc": "Repeat last motion (f/t/m/[ or ])", "tags": ["move", "repeat"] },
+        { "keys": ["Home"], "desc": "Start of line", "tags": ["move", "line"] },
+        { "keys": ["End"], "desc": "End of line", "tags": ["move", "line"] },
+        { "keys": ["Ctrl+b", "PageUp"], "desc": "Page up", "tags": ["move", "page"] },
+        { "keys": ["Ctrl+f", "PageDown"], "desc": "Page down", "tags": ["move", "page"] },
+        { "keys": ["Ctrl+u"], "desc": "Half page up", "tags": ["move", "page"] },
+        { "keys": ["Ctrl+d"], "desc": "Half page down", "tags": ["move", "page"] },
+        { "keys": ["Ctrl+o"], "desc": "Jump backward on jumplist", "tags": ["move", "jump"] },
+        { "keys": ["Ctrl+i"], "desc": "Jump forward on jumplist", "tags": ["move", "jump"] },
+        { "keys": ["G"], "desc": "Go to line number (use a count: e.g. 42G)", "tags": ["move", "file"] },
+        { "keys": ["g g"], "desc": "Go to start of file (or go to line with count)", "tags": ["move", "file"] },
+        { "keys": ["g e"], "desc": "Go to end of file", "tags": ["move", "file"] },
+        { "keys": ["g s"], "desc": "Go to first non-whitespace in line", "tags": ["move", "line"] }
+      ]
+    },
+    {
+      "title": "Selection (selection-first editing)",
+      "items": [
+        { "keys": ["v"], "desc": "Enter Select mode (movements extend selection)", "tags": ["select", "mode"] },
+        { "keys": ["x"], "desc": "Select current line; repeat to extend down", "tags": ["select", "line"] },
+        { "keys": ["X"], "desc": "Extend selection to line bounds (line-wise)", "tags": ["select", "line"] },
+        { "keys": ["%"], "desc": "Select entire file", "tags": ["select", "file"] },
+        { "keys": [";"], "desc": "Collapse selection to single cursor", "tags": ["select"] },
+        { "keys": ["Alt+;"], "desc": "Flip selection cursor/anchor", "tags": ["select"] },
+        { "keys": [","], "desc": "Keep only primary selection", "tags": ["select"] },
+        { "keys": ["Alt+,"], "desc": "Remove primary selection", "tags": ["select"] },
+        { "keys": ["C"], "desc": "Copy selection onto next line (add cursor below)", "tags": ["select", "multi-cursor"] },
+        { "keys": ["Alt+C"], "desc": "Copy selection onto previous line (add cursor above)", "tags": ["select", "multi-cursor"] },
+        { "keys": ["m m"], "desc": "Go to matching bracket (tree-sitter)", "tags": ["match", "move"] },
+        { "keys": ["m a{object}"], "desc": "Select around textobject", "tags": ["select", "textobject"] },
+        { "keys": ["m i{object}"], "desc": "Select inside textobject", "tags": ["select", "textobject"] }
+      ]
+    },
+    {
+      "title": "Editing / deleting (Normal mode)",
+      "items": [
+        { "keys": ["r{char}"], "desc": "Replace with a character", "tags": ["change"] },
+        { "keys": ["R"], "desc": "Replace with yanked text", "tags": ["change"] },
+        { "keys": ["d"], "desc": "Delete selection", "tags": ["delete"] },
+        { "keys": ["Alt+d"], "desc": "Delete selection without yanking", "tags": ["delete", "yank", "black hole"] },
+        { "keys": ["c"], "desc": "Change selection (delete then insert)", "tags": ["change"] },
+        { "keys": ["Alt+c"], "desc": "Change selection without yanking", "tags": ["change", "yank", "black hole"] },
+        { "keys": [">"], "desc": "Indent selection", "tags": ["indent"] },
+        { "keys": ["<"], "desc": "Unindent selection", "tags": ["indent"] },
+        { "keys": ["="], "desc": "Format selection (LSP)", "tags": ["format"] },
+        { "keys": ["J"], "desc": "Join lines inside selection", "tags": ["edit", "line"] },
+        { "keys": ["u"], "desc": "Undo", "tags": ["undo"] },
+        { "keys": ["U"], "desc": "Redo", "tags": ["redo"] },
+        { "keys": ["Alt+u"], "desc": "Earlier in history", "tags": ["undo", "history"] },
+        { "keys": ["Alt+U"], "desc": "Later in history", "tags": ["redo", "history"] },
+        { "keys": ["Q"], "desc": "Start/stop macro recording to selected register (experimental)", "tags": ["macro"] },
+        { "keys": ["q"], "desc": "Replay macro from selected register (experimental)", "tags": ["macro"] }
+      ]
+    },
+    {
+      "title": "Yank / paste / registers",
+      "items": [
+        { "keys": ["y"], "desc": "Yank selection", "tags": ["yank"] },
+        { "keys": ["p"], "desc": "Paste after selection", "tags": ["paste"] },
+        { "keys": ["P"], "desc": "Paste before selection", "tags": ["paste"] },
+        { "keys": ["\"{reg}"], "desc": "Select register for yank/paste/search", "tags": ["register"] },
+        { "keys": ["Space+y"], "desc": "Yank selections to system clipboard", "tags": ["yank", "clipboard"] },
+        { "keys": ["Space+Y"], "desc": "Yank main selection to system clipboard", "tags": ["yank", "clipboard"] },
+        { "keys": ["Space+p"], "desc": "Paste system clipboard after selections", "tags": ["paste", "clipboard"] },
+        { "keys": ["Space+P"], "desc": "Paste system clipboard before selections", "tags": ["paste", "clipboard"] },
+        { "keys": ["Space+R"], "desc": "Replace selections with clipboard contents", "tags": ["paste", "clipboard", "change"] }
+      ]
+    },
+    {
+      "title": "Search",
+      "items": [
+        { "keys": ["/pattern"], "desc": "Search forward (regex)", "tags": ["search"] },
+        { "keys": ["?pattern"], "desc": "Search backward (regex)", "tags": ["search"] },
+        { "keys": ["n"], "desc": "Select next match", "tags": ["search"] },
+        { "keys": ["N"], "desc": "Select previous match", "tags": ["search"] },
+        { "keys": ["*"], "desc": "Search for current selection (word-boundary wrapped)", "tags": ["search"] },
+        { "keys": ["Alt+*"], "desc": "Search for current selection (no word-boundary wrap)", "tags": ["search"] },
+        { "keys": ["Space+/"], "desc": "Global search in workspace (picker)", "tags": ["search", "workspace"] }
+      ]
+    },
+    {
+      "title": "Windows / splits (Window mode: Ctrl-w …)",
+      "items": [
+        { "keys": ["Ctrl+w v"], "desc": "Vertical split (right)", "tags": ["split", "window"] },
+        { "keys": ["Ctrl+w s"], "desc": "Horizontal split (bottom)", "tags": ["split", "window"] },
+        { "keys": ["Ctrl+w h/j/k/l"], "desc": "Move to left/down/up/right split", "tags": ["split", "window"] },
+        { "keys": ["Ctrl+w w"], "desc": "Rotate to next window", "tags": ["window"] },
+        { "keys": ["Ctrl+w q"], "desc": "Close current window", "tags": ["split", "window"] },
+        { "keys": ["Ctrl+w o"], "desc": "Close other windows (only current)", "tags": ["split", "window"] }
+      ]
+    },
+    {
+      "title": "Pickers / palette (Space mode)",
+      "items": [
+        { "keys": ["Space+f"], "desc": "File picker (workspace root)", "tags": ["picker", "file"] },
+        { "keys": ["Space+F"], "desc": "File picker (current working directory)", "tags": ["picker", "file"] },
+        { "keys": ["Space+b"], "desc": "Buffer picker", "tags": ["picker", "buffer"] },
+        { "keys": ["Space+j"], "desc": "Jumplist picker", "tags": ["picker", "jump"] },
+        { "keys": ["Space+s"], "desc": "Document symbols (LSP)", "tags": ["picker", "lsp"] },
+        { "keys": ["Space+S"], "desc": "Workspace symbols (LSP)", "tags": ["picker", "lsp"] },
+        { "keys": ["Space+d"], "desc": "Document diagnostics (LSP)", "tags": ["picker", "lsp"] },
+        { "keys": ["Space+D"], "desc": "Workspace diagnostics (LSP)", "tags": ["picker", "lsp"] },
+        { "keys": ["Space+?"], "desc": "Command palette", "tags": ["picker", "command"] },
+        { "keys": ["Space+'"], "desc": "Reopen last fuzzy picker", "tags": ["picker"] }
+      ]
+    },
+    {
+      "title": "Insert mode essentials",
+      "items": [
+        { "keys": ["Esc"], "desc": "Exit Insert mode to Normal", "tags": ["insert", "mode"] },
+        { "keys": ["Ctrl+s"], "desc": "Commit undo checkpoint", "tags": ["undo"] },
+        { "keys": ["Ctrl+x"], "desc": "Autocomplete", "tags": ["completion"] },
+        { "keys": ["Ctrl+r"], "desc": "Insert register content", "tags": ["register"] },
+        { "keys": ["Ctrl+w", "Alt+Backspace"], "desc": "Delete previous word", "tags": ["delete", "word"] },
+        { "keys": ["Alt+d", "Alt+Delete"], "desc": "Delete next word", "tags": ["delete", "word"] },
+        { "keys": ["Ctrl+u"], "desc": "Delete to start of line", "tags": ["delete", "line"] },
+        { "keys": ["Ctrl+k"], "desc": "Delete to end of line", "tags": ["delete", "line"] },
+        { "keys": ["Backspace", "Ctrl+h"], "desc": "Delete previous char", "tags": ["delete"] },
+        { "keys": ["Delete", "Ctrl+d"], "desc": "Delete next char", "tags": ["delete"] },
+        { "keys": ["Enter", "Ctrl+j"], "desc": "Insert newline", "tags": ["insert", "line"] }
+      ]
+    }
+  ]
+}

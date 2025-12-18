@@ -1,0 +1,446 @@
+{
+    "id": "chromium",
+    "name": "Chromium Browsers",
+    "description": "Navigation, tab management, search, devtools, profiles, extensions, and privacy controls for Chromium-based browsers (Chrome, Edge, Brave, Vivaldi, Opera).",
+    "hint": "Most shortcuts are identical across Chromium browsers; some menu paths differ by brand.",
+    "processes": [
+        "chromium.exe",
+        "chrome.exe",
+        "msedge.exe",
+        "brave.exe",
+        "vivaldi.exe"
+    ],
+    "sections": [
+        {
+            "title": "Navigation",
+            "items": [
+                { "keys": ["Alt+Left"], "desc": "Back", "tags": ["nav"] },
+                { "keys": ["Alt+Right"], "desc": "Forward", "tags": ["nav"] },
+                {
+                    "keys": ["Ctrl+R", "F5"],
+                    "desc": "Reload",
+                    "tags": ["nav", "reload"]
+                },
+                {
+                    "keys": ["Ctrl+Shift+R", "Shift+F5"],
+                    "desc": "Hard reload (bypass cache)",
+                    "tags": ["nav", "reload", "cache"]
+                },
+                { "keys": ["Esc"], "desc": "Stop loading", "tags": ["nav"] },
+                {
+                    "keys": ["Alt+Home"],
+                    "desc": "Home (if configured)",
+                    "tags": ["nav"]
+                },
+                {
+                    "keys": ["Ctrl+L", "Alt+D", "F6"],
+                    "desc": "Focus address bar",
+                    "tags": ["address", "omnibox"]
+                },
+                {
+                    "keys": ["Ctrl+Enter"],
+                    "desc": "Add www. and .com to typed address",
+                    "tags": ["address", "omnibox"]
+                },
+                {
+                    "keys": ["Ctrl+K", "Ctrl+E"],
+                    "desc": "Focus omnibox search",
+                    "tags": ["search", "omnibox"]
+                }
+            ]
+        },
+        {
+            "title": "Tabs",
+            "items": [
+                { "keys": ["Ctrl+T"], "desc": "New tab", "tags": ["tab"] },
+                {
+                    "keys": ["Ctrl+W", "Ctrl+F4"],
+                    "desc": "Close current tab",
+                    "tags": ["tab", "close"]
+                },
+                {
+                    "keys": ["Ctrl+Shift+T"],
+                    "desc": "Reopen last closed tab",
+                    "tags": ["tab", "restore"]
+                },
+                {
+                    "keys": ["Ctrl+Tab"],
+                    "desc": "Next tab",
+                    "tags": ["tab", "switch"]
+                },
+                {
+                    "keys": ["Ctrl+Shift+Tab"],
+                    "desc": "Previous tab",
+                    "tags": ["tab", "switch"]
+                },
+                {
+                    "keys": ["Ctrl+1..8"],
+                    "desc": "Switch to tab 1..8",
+                    "tags": ["tab", "switch"]
+                },
+                {
+                    "keys": ["Ctrl+9"],
+                    "desc": "Switch to last tab",
+                    "tags": ["tab", "switch"]
+                },
+                {
+                    "keys": ["Ctrl+N"],
+                    "desc": "New window",
+                    "tags": ["window"]
+                },
+                {
+                    "keys": ["Ctrl+Shift+N"],
+                    "desc": "New Incognito/Private window",
+                    "tags": ["window", "privacy"]
+                },
+                {
+                    "keys": ["Alt+F4"],
+                    "desc": "Close window",
+                    "tags": ["window", "close"]
+                },
+                {
+                    "keys": ["Ctrl+Shift+W"],
+                    "desc": "Close current window (all tabs)",
+                    "tags": ["window", "close"]
+                }
+            ]
+        },
+        {
+            "title": "Find / Search",
+            "items": [
+                {
+                    "keys": ["Ctrl+F"],
+                    "desc": "Find in page",
+                    "tags": ["search", "find"]
+                },
+                {
+                    "keys": ["Enter"],
+                    "desc": "Next match (Find bar)",
+                    "tags": ["search", "find"]
+                },
+                {
+                    "keys": ["Shift+Enter"],
+                    "desc": "Previous match (Find bar)",
+                    "tags": ["search", "find"]
+                },
+                {
+                    "keys": ["F3"],
+                    "desc": "Next match (Find)",
+                    "tags": ["search", "find"]
+                },
+                {
+                    "keys": ["Shift+F3"],
+                    "desc": "Previous match (Find)",
+                    "tags": ["search", "find"]
+                }
+            ]
+        },
+        {
+            "title": "Address bar (Omnibox) tricks",
+            "items": [
+                {
+                    "keys": ["Ctrl+L, then type, then Enter"],
+                    "desc": "Navigate to URL or search",
+                    "tags": ["omnibox"]
+                },
+                {
+                    "keys": ["Alt+Enter"],
+                    "desc": "Open typed URL/search in new tab",
+                    "tags": ["omnibox", "tab"]
+                },
+                {
+                    "keys": ["Ctrl+L, then ?<query>"],
+                    "desc": "Force search (treat input as query)",
+                    "tags": ["omnibox", "search"]
+                },
+                {
+                    "keys": ["Ctrl+L, then view-source:<url>"],
+                    "desc": "Open page source",
+                    "tags": ["dev", "source"]
+                },
+                {
+                    "keys": ["Ctrl+L, then chrome://version"],
+                    "desc": "Open version info (brand may use edge://version, brave://version, vivaldi://version, opera://about)",
+                    "tags": ["about", "diagnostics"],
+                    "hint": "If chrome:// pages are blocked, use the browser brand prefix."
+                }
+            ]
+        },
+        {
+            "title": "Bookmarks / Downloads / History",
+            "items": [
+                {
+                    "keys": ["Ctrl+D"],
+                    "desc": "Bookmark page",
+                    "tags": ["bookmark"]
+                },
+                {
+                    "keys": ["Ctrl+Shift+D"],
+                    "desc": "Bookmark all open tabs (current window)",
+                    "tags": ["bookmark", "tab"]
+                },
+                {
+                    "keys": ["Ctrl+Shift+O"],
+                    "desc": "Bookmark manager",
+                    "tags": ["bookmark"]
+                },
+                { "keys": ["Ctrl+H"], "desc": "History", "tags": ["history"] },
+                {
+                    "keys": ["Ctrl+J"],
+                    "desc": "Downloads",
+                    "tags": ["downloads"]
+                }
+            ]
+        },
+        {
+            "title": "Zoom / View",
+            "items": [
+                {
+                    "keys": ["Ctrl++", "Ctrl+="],
+                    "desc": "Zoom in",
+                    "tags": ["zoom", "view"]
+                },
+                {
+                    "keys": ["Ctrl+-"],
+                    "desc": "Zoom out",
+                    "tags": ["zoom", "view"]
+                },
+                {
+                    "keys": ["Ctrl+0"],
+                    "desc": "Reset zoom",
+                    "tags": ["zoom", "view"]
+                },
+                {
+                    "keys": ["F11"],
+                    "desc": "Toggle fullscreen",
+                    "tags": ["view"]
+                },
+                {
+                    "keys": ["Ctrl+Shift+B"],
+                    "desc": "Toggle bookmarks bar",
+                    "tags": ["view", "bookmark"]
+                }
+            ]
+        },
+        {
+            "title": "Clipboard / Page interaction",
+            "items": [
+                {
+                    "keys": ["Ctrl+A"],
+                    "desc": "Select all (page/input)",
+                    "tags": ["select"]
+                },
+                {
+                    "keys": ["Ctrl+C"],
+                    "desc": "Copy selection",
+                    "tags": ["copy"]
+                },
+                { "keys": ["Ctrl+V"], "desc": "Paste", "tags": ["paste"] },
+                { "keys": ["Ctrl+X"], "desc": "Cut", "tags": ["cut"] },
+                {
+                    "keys": ["Ctrl+Z"],
+                    "desc": "Undo (in inputs)",
+                    "tags": ["undo"]
+                },
+                {
+                    "keys": ["Ctrl+Y", "Ctrl+Shift+Z"],
+                    "desc": "Redo (in inputs)",
+                    "tags": ["redo"]
+                },
+                {
+                    "keys": ["Space", "Shift+Space"],
+                    "desc": "Scroll down/up",
+                    "tags": ["scroll"]
+                },
+                {
+                    "keys": ["Home", "End"],
+                    "desc": "Top/bottom of page",
+                    "tags": ["scroll"]
+                },
+                {
+                    "keys": ["Ctrl+MouseWheel"],
+                    "desc": "Zoom with mouse wheel",
+                    "tags": ["zoom", "mouse"]
+                }
+            ]
+        },
+        {
+            "title": "Links / Tab opening",
+            "items": [
+                {
+                    "keys": ["Middle-click link"],
+                    "desc": "Open link in new background tab",
+                    "tags": ["tab", "mouse"]
+                },
+                {
+                    "keys": ["Ctrl+Click link"],
+                    "desc": "Open link in new background tab",
+                    "tags": ["tab"]
+                },
+                {
+                    "keys": ["Ctrl+Shift+Click link"],
+                    "desc": "Open link in new foreground tab",
+                    "tags": ["tab"]
+                },
+                {
+                    "keys": ["Shift+Click link"],
+                    "desc": "Open link in new window",
+                    "tags": ["window"]
+                },
+                {
+                    "keys": ["Alt+Click link"],
+                    "desc": "Download link target (behavior may vary)",
+                    "tags": ["downloads"]
+                }
+            ]
+        },
+        {
+            "title": "Developer Tools",
+            "items": [
+                {
+                    "keys": ["F12"],
+                    "desc": "Toggle DevTools",
+                    "tags": ["devtools"]
+                },
+                {
+                    "keys": ["Ctrl+Shift+I"],
+                    "desc": "Toggle DevTools",
+                    "tags": ["devtools"]
+                },
+                {
+                    "keys": ["Ctrl+Shift+J"],
+                    "desc": "Open Console",
+                    "tags": ["devtools", "console"]
+                },
+                {
+                    "keys": ["Ctrl+Shift+C"],
+                    "desc": "Inspect element picker",
+                    "tags": ["devtools", "inspect"]
+                },
+                {
+                    "keys": ["Ctrl+Shift+P"],
+                    "desc": "Command menu (DevTools)",
+                    "tags": ["devtools", "command"]
+                },
+                {
+                    "keys": ["Ctrl+Shift+M"],
+                    "desc": "Toggle device toolbar (responsive mode)",
+                    "tags": ["devtools", "responsive"]
+                },
+                {
+                    "keys": ["Ctrl+P"],
+                    "desc": "Open file (DevTools)",
+                    "tags": ["devtools"]
+                },
+                {
+                    "keys": ["Ctrl+Shift+F"],
+                    "desc": "Search across sources (DevTools)",
+                    "tags": ["devtools", "search"]
+                },
+                {
+                    "keys": ["Ctrl+Shift+Delete"],
+                    "desc": "Clear browsing data dialog",
+                    "tags": ["privacy", "data"]
+                }
+            ]
+        },
+        {
+            "title": "Privacy / Identity",
+            "items": [
+                {
+                    "keys": ["Ctrl+Shift+N"],
+                    "desc": "New Incognito/Private window",
+                    "tags": ["privacy"]
+                },
+                {
+                    "keys": ["Ctrl+Shift+Delete"],
+                    "desc": "Clear browsing data",
+                    "tags": ["privacy", "data"]
+                },
+                {
+                    "keys": ["Ctrl+L, then chrome://settings/privacy"],
+                    "desc": "Privacy settings (brand prefix may differ)",
+                    "tags": ["privacy", "settings"]
+                },
+                {
+                    "keys": ["Ctrl+L, then chrome://settings/siteData"],
+                    "desc": "Cookies and site data (brand prefix may differ)",
+                    "tags": ["privacy", "cookies"]
+                }
+            ]
+        },
+        {
+            "title": "Profiles / Extensions / Settings",
+            "items": [
+                {
+                    "keys": ["Alt+F"],
+                    "desc": "Open browser menu (varies)",
+                    "tags": ["menu"]
+                },
+                {
+                    "keys": ["Alt+E"],
+                    "desc": "Open settings/menu (Edge legacy mapping; may vary)",
+                    "tags": ["menu"]
+                },
+                {
+                    "keys": ["Ctrl+L, then chrome://extensions"],
+                    "desc": "Extensions page (brand prefix may differ)",
+                    "tags": ["extensions"]
+                },
+                {
+                    "keys": ["Ctrl+L, then chrome://settings"],
+                    "desc": "Settings (brand prefix may differ)",
+                    "tags": ["settings"]
+                },
+                {
+                    "keys": ["Ctrl+L, then chrome://flags"],
+                    "desc": "Experimental flags (use caution)",
+                    "tags": ["flags", "danger"],
+                    "hint": "Changing flags can destabilize browser; revert via Reset if needed."
+                }
+            ]
+        },
+        {
+            "title": "PDF / Reading / Print",
+            "items": [
+                { "keys": ["Ctrl+P"], "desc": "Print", "tags": ["print"] },
+                {
+                    "keys": ["Ctrl+S"],
+                    "desc": "Save page (HTML) / Save PDF from built-in viewer (varies by context)",
+                    "tags": ["save"]
+                },
+                {
+                    "keys": ["Ctrl+F"],
+                    "desc": "Find in PDF viewer",
+                    "tags": ["pdf", "find"]
+                },
+                {
+                    "keys": ["Ctrl+L, then file:///C:/path/file.pdf"],
+                    "desc": "Open local file by path",
+                    "tags": ["file", "pdf"]
+                }
+            ]
+        },
+        {
+            "title": "Useful extras",
+            "items": [
+                {
+                    "keys": ["Ctrl+Shift+Esc"],
+                    "desc": "Open browser task manager (Chrome/Edge/Brave; support varies)",
+                    "tags": ["performance", "task"]
+                },
+                {
+                    "keys": ["Ctrl+Shift+I, then Ctrl+Shift+P"],
+                    "desc": "Run DevTools command (e.g., Disable cache)",
+                    "tags": ["devtools", "workflow"]
+                },
+                {
+                    "keys": ["Ctrl+L, then chrome://net-internals"],
+                    "desc": "Network internals (legacy; availability varies)",
+                    "tags": ["diagnostics"],
+                    "hint": "Many browsers replaced this with other net logs/tools."
+                }
+            ]
+        }
+    ]
+}

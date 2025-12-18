@@ -1,0 +1,97 @@
+{
+  "id": "tmux",
+  "name": "tmux",
+  "description": "Session, window, pane management and copy mode.",
+  "hint": "Prefix key defaults to Ctrl+b. Commands are prefix-based unless stated otherwise.",
+  "processes": ["tmux", "tmux.exe", "WindowsTerminal.exe", "cmd.exe", "consolehost.exe"],
+  "sections": [
+    {
+      "title": "Session / Client",
+      "items": [
+        { "keys": ["tmux"], "desc": "Start tmux server and client", "tags": ["session"] },
+        { "keys": ["tmux new -s name"], "desc": "Create new session with name", "tags": ["session"] },
+        { "keys": ["tmux ls"], "desc": "List sessions", "tags": ["session"] },
+        { "keys": ["tmux attach -t name"], "desc": "Attach to session", "tags": ["session"] },
+        { "keys": ["Prefix d"], "desc": "Detach from session", "tags": ["session"] },
+        { "keys": ["Prefix s"], "desc": "Choose session", "tags": ["session"] },
+        { "keys": ["Prefix $"], "desc": "Rename current session", "tags": ["session"] },
+        { "keys": ["Prefix :kill-session"], "desc": "Kill current session", "tags": ["session", "danger"] }
+      ]
+    },
+    {
+      "title": "Windows",
+      "items": [
+        { "keys": ["Prefix c"], "desc": "Create new window", "tags": ["window"] },
+        { "keys": ["Prefix ,"], "desc": "Rename current window", "tags": ["window"] },
+        { "keys": ["Prefix &"], "desc": "Kill current window", "tags": ["window", "danger"] },
+        { "keys": ["Prefix n"], "desc": "Next window", "tags": ["window"] },
+        { "keys": ["Prefix p"], "desc": "Previous window", "tags": ["window"] },
+        { "keys": ["Prefix l"], "desc": "Last active window", "tags": ["window"] },
+        { "keys": ["Prefix w"], "desc": "Choose window", "tags": ["window"] },
+        { "keys": ["Prefix 0–9"], "desc": "Select window by index", "tags": ["window"] },
+        { "keys": ["Prefix ."], "desc": "Move window (prompt for index)", "tags": ["window"] }
+      ]
+    },
+    {
+      "title": "Panes",
+      "items": [
+        { "keys": ["Prefix %"], "desc": "Split pane vertically", "tags": ["pane", "split"] },
+        { "keys": ["Prefix \""], "desc": "Split pane horizontally", "tags": ["pane", "split"] },
+        { "keys": ["Prefix x"], "desc": "Kill current pane", "tags": ["pane", "danger"] },
+        { "keys": ["Prefix o"], "desc": "Select next pane", "tags": ["pane"] },
+        { "keys": ["Prefix ;"], "desc": "Toggle last active pane", "tags": ["pane"] },
+        { "keys": ["Prefix h/j/k/l"], "desc": "Move to left/down/up/right pane", "tags": ["pane", "move"] },
+        { "keys": ["Prefix q"], "desc": "Display pane numbers", "tags": ["pane"] },
+        { "keys": ["Prefix z"], "desc": "Toggle pane zoom", "tags": ["pane"] },
+        { "keys": ["Prefix !"], "desc": "Break pane into new window", "tags": ["pane", "window"] }
+      ]
+    },
+    {
+      "title": "Layout / Resize",
+      "items": [
+        { "keys": ["Prefix Space"], "desc": "Cycle pane layouts", "tags": ["pane", "layout"] },
+        { "keys": ["Prefix Ctrl+h/j/k/l"], "desc": "Resize pane in direction", "tags": ["pane", "resize"] },
+        { "keys": ["Prefix Alt+1"], "desc": "Even-horizontal layout", "tags": ["pane", "layout"] },
+        { "keys": ["Prefix Alt+2"], "desc": "Even-vertical layout", "tags": ["pane", "layout"] },
+        { "keys": ["Prefix Alt+3"], "desc": "Main-horizontal layout", "tags": ["pane", "layout"] },
+        { "keys": ["Prefix Alt+4"], "desc": "Main-vertical layout", "tags": ["pane", "layout"] },
+        { "keys": ["Prefix ="], "desc": "Equalize pane sizes", "tags": ["pane", "layout"] }
+      ]
+    },
+    {
+      "title": "Copy mode / Scrollback",
+      "items": [
+        { "keys": ["Prefix ["], "desc": "Enter copy mode", "tags": ["copy", "scroll"] },
+        { "keys": ["q"], "desc": "Exit copy mode", "tags": ["copy"] },
+        { "keys": ["Up/Down"], "desc": "Scroll line up/down", "tags": ["copy", "scroll"] },
+        { "keys": ["PageUp/PageDown"], "desc": "Scroll page up/down", "tags": ["copy", "scroll"] },
+        { "keys": ["g"], "desc": "Go to top of buffer", "tags": ["copy", "scroll"] },
+        { "keys": ["G"], "desc": "Go to bottom of buffer", "tags": ["copy", "scroll"] },
+        { "keys": ["Space"], "desc": "Start selection", "tags": ["copy", "select"] },
+        { "keys": ["Enter"], "desc": "Copy selection and exit copy mode", "tags": ["copy", "yank"] },
+        { "keys": ["/pattern"], "desc": "Search forward in copy mode", "tags": ["copy", "search"] },
+        { "keys": ["?pattern"], "desc": "Search backward in copy mode", "tags": ["copy", "search"] }
+      ]
+    },
+    {
+      "title": "Buffers / Paste",
+      "items": [
+        { "keys": ["Prefix ]"], "desc": "Paste most recent buffer", "tags": ["paste"] },
+        { "keys": ["Prefix ="], "desc": "Choose buffer to paste", "tags": ["paste", "buffer"] },
+        { "keys": ["Prefix :show-buffer"], "desc": "Show buffer contents", "tags": ["buffer"] },
+        { "keys": ["Prefix :list-buffers"], "desc": "List paste buffers", "tags": ["buffer"] },
+        { "keys": ["Prefix :delete-buffer"], "desc": "Delete buffer", "tags": ["buffer", "danger"] }
+      ]
+    },
+    {
+      "title": "Command / Misc",
+      "items": [
+        { "keys": ["Prefix :"], "desc": "Command prompt", "tags": ["command"] },
+        { "keys": ["Prefix t"], "desc": "Show clock", "tags": ["misc"] },
+        { "keys": ["Prefix ?"], "desc": "List key bindings", "tags": ["help"] },
+        { "keys": ["Prefix r"], "desc": "Reload tmux configuration", "tags": ["config"] },
+        { "keys": ["Prefix Ctrl+b"], "desc": "Send prefix to nested tmux", "tags": ["misc"] }
+      ]
+    }
+  ]
+}
