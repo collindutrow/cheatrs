@@ -222,6 +222,35 @@ fn close_window(window: tauri::Window) {
 }
 
 #[tauri::command]
+fn get_user_cheatsheets_dir() -> Option<PathBuf> {
+    #[cfg(target_os = "windows")]
+    let base_dir = std::env::var("APPDATA")
+        .ok()
+        .map(|appdata| PathBuf::from(appdata).join("cheatrs"));
+
+    #[cfg(target_os = "macos")]
+    let base_dir = std::env::var("HOME").ok().map(|home| {
+        PathBuf::from(home)
+            .join("Library")
+            .join("Application Support")
+            .join("cheatrs")
+    });
+
+    #[cfg(target_os = "linux")]
+    let base_dir = std::env::var("HOME").ok().map(|home| {
+        PathBuf::from(home)
+            .join(".local")
+            .join("share")
+            .join("cheatrs")
+    });
+
+    #[cfg(not(any(target_os = "windows", target_os = "macos", target_os = "linux")))]
+    let base_dir: Option<PathBuf> = None;
+
+    base_dir.map(|dir| dir.join("cheatsheets"))
+}
+
+#[tauri::command]
 fn load_cheatsheets(app: tauri::AppHandle) -> Result<Vec<CheatSheet>, String> {
     let mut sheets = Vec::new();
     let mut dirs_to_search = Vec::new();
