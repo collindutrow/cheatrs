@@ -420,29 +420,16 @@ fn setup_tray<R: Runtime>(app: &mut tauri::App<R>) -> tauri::Result<()> {
     Ok(())
 }
 
-/// Best-effort tray icon loader. If unavailable, allow OS default icon.
-fn load_tray_icon<R: Runtime>(app: &tauri::App<R>) -> Option<tauri::image::Image<'static>> {
+/// Load embedded tray icon.
+fn load_tray_icon<R: Runtime>(_app: &tauri::App<R>) -> Option<tauri::image::Image<'static>> {
     use tauri::image::Image;
 
-    let resource_dir = match app.path().resource_dir() {
-        Ok(dir) => dir,
-        Err(e) => {
-            eprintln!("tray icon: resource dir unavailable, using default icon: {e}");
-            return None;
-        }
-    };
+    const TRAY_ICON_BYTES: &[u8] = include_bytes!("../icons/tray.png");
 
-    let icons_dir = resource_dir.join("icons");
-
-    let png_path = icons_dir.join("tray.png");
-    match Image::from_path(&png_path) {
+    match Image::from_bytes(TRAY_ICON_BYTES) {
         Ok(img) => Some(img),
         Err(e) => {
-            eprintln!(
-                "tray icon: failed to load {}, using default icon: {}",
-                png_path.display(),
-                e
-            );
+            eprintln!("tray icon: failed to load embedded icon: {}", e);
             None
         }
     }
@@ -505,49 +492,55 @@ fn reload_main_window<R: Runtime>(app: &AppHandle<R>) {
 }
 
 /// Open the cheatsheets folder in the system file explorer.
-fn open_cheatsheets_folder<R: Runtime>(_app: &AppHandle<R>) {
-    // Get the user data directory for cheatsheets
-    #[cfg(target_os = "windows")]
-    let user_dir = std::env::var("APPDATA")
-        .ok()
-        .map(|appdata| PathBuf::from(appdata).join("cheatrs").join("cheatsheets"));
-
-    #[cfg(target_os = "macos")]
-    let user_dir = std::env::var("HOME").ok().map(|home| {
-        PathBuf::from(home)
-            .join("Library")
-            .join("Application Support")
-            .join("cheatrs")
-            .join("cheatsheets")
-    });
-
-    #[cfg(target_os = "linux")]
-    let user_dir = std::env::var("HOME").ok().map(|home| {
-        PathBuf::from(home)
-            .join(".local")
-            .join("share")
-            .join("cheatrs")
-            .join("cheatsheets")
-    });
-
-    if let Some(dir) = user_dir {
+fn open_cheatsheets_folder<R: Runtime>(
+    #[cfg_attr(target_os = "windows", allow(unused_variables))] app: &AppHandle<R>,
+) {
+    if let Some(dir) = get_user_cheatsheets_dir() {
         // Create the directory if it doesn't exist
         let _ = fs::create_dir_all(&dir);
 
-        // Open the folder using a shell command
+        // Windows: Use ShellExecuteW to respect file manager replacements
         #[cfg(target_os = "windows")]
         {
-            let _ = std::process::Command::new("explorer").arg(&dir).spawn();
+            use windows::Win32::UI::Shell::ShellExecuteW;
+            use windows::Win32::UI::WindowsAndMessaging::SW_SHOWNORMAL;
+            use windows::core::{PCWSTR, w};
+
+            if let Some(dir_str) = dir.to_str() {
+                let dir_wide: Vec<u16> = dir_str.encode_utf16().chain(std::iter::once(0)).collect();
+
+                unsafe {
+                    let result = ShellExecuteW(
+                        None,
+                        w!("explore"),
+                        PCWSTR::from_raw(dir_wide.as_ptr()),
+                        None,
+                        None,
+                        SW_SHOWNORMAL,
+                    );
+
+                    // ShellExecute returns > 32 on success
+                    let result_code = result.0 as isize;
+                    if result_code <= 32 {
+                        eprintln!(
+                            "Failed to open folder with ShellExecute: error code {}",
+                            result_code
+                        );
+                    }
+                }
+            }
         }
 
-        #[cfg(target_os = "macos")]
+        // macOS and Linux: Use Tauri opener plugin
+        #[cfg(not(target_os = "windows"))]
         {
-            let _ = std::process::Command::new("open").arg(&dir).spawn();
-        }
+            use tauri_plugin_opener::OpenerExt;
 
-        #[cfg(target_os = "linux")]
-        {
-            let _ = std::process::Command::new("xdg-open").arg(&dir).spawn();
+            if let Some(dir_str) = dir.to_str() {
+                if let Err(e) = app.opener().open_path(dir_str, None::<&str>) {
+                    eprintln!("Failed to open cheatsheets folder: {}", e);
+                }
+            }
         }
     }
 }

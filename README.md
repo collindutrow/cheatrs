@@ -19,16 +19,6 @@ Cheatrs get it's name from a combination of Cheat and the common abbreviation RS
 - Light/dark mode via system theme.
 - Allows for both per process and general cheatsheets.
 
-
-## Adding sheets
-
-Place `.json` files in either:
-
-- `<project>/cheatsheets`
-- Any user-specific cheatsheet directory listed above
-
-Use tray → Reload to pick up changes.
-
 ## Cheatsheet JSON format
 
 ### Sheet
@@ -86,10 +76,16 @@ Cheatrs loads all `*.json` files (non-recursive) from:
 3. **Per-user directory**
 
    - Windows: `%APPDATA%\cheatrs\cheatsheets`
+   
    - macOS: `~/Library/Application Support/cheatrs/cheatsheets`
+   
    - Linux: `~/.local/share/cheatrs/cheatsheets`
+   
+     
 
 Directories are scanned in the above order. Invalid JSON files are skipped.
+
+Use tray → Reload to pick up changes.
 
 ## Behavior summary
 
